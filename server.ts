@@ -4,17 +4,17 @@ import Server from "./src/index";
 import swaggerUi from "swagger-ui-express";
 import bodyParser from 'body-parser';
 
-//const swaggerFile = require('./swagger-output.json')
+const swaggerFile = require('./swagger-output.json')
 
 
 const app: Application = express();
 const server: Server = new Server(app);
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
 
-/*
+
 app.use(bodyParser.json())
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
-*/
+
 
 app
   .listen(PORT, "localhost", function () {
