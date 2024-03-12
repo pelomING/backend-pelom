@@ -40,6 +40,7 @@ testem.log
 /old-modules
 *.bat
 *.zip
+*.txt
 
 # System files
 .DS_Store
