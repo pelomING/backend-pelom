@@ -1,0 +1,33 @@
+{
+    "entryFile": "./server.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": ["src/controllers/*controller.ts"],
+    "modelPathGlobs": ["src/models/**/*model.ts"],
+    "spec": { 
+      "outputDirectory": "src",
+      "specVersion": 3,
+      "basePath": "/api",
+      "securityDefinitions": {
+        "jwt": {
+          "type": "apiKey",
+          "name": "auth-token",
+          "in": "header",
+          "description": "The authorization token"
+        }
+      },
+      "spec": {
+        "servers": [
+          {
+            "url": "http://localhost:7080/api"
+          }
+        ]
+      }
+    },
+    "routes": {
+      "routesDir": "src/routes",
+      "basePath": "/api",
+      "authenticationModule": "./src/middleware/auth.middleware.ts",
+      "middleware": "express"
+    }
+  }
+  

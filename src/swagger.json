@@ -1,0 +1,292 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Pick_IMenuItem.Exclude_keyofIMenuItem.orden__": {
+				"properties": {
+					"label": {
+						"type": "string"
+					},
+					"icon": {
+						"type": "string"
+					},
+					"routerLink": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"label",
+					"icon",
+					"routerLink"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IMenuItem.orden_": {
+				"$ref": "#/components/schemas/Pick_IMenuItem.Exclude_keyofIMenuItem.orden__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IJsonMenu": {
+				"properties": {
+					"label": {
+						"type": "string"
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/Omit_IMenuItem.orden_"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"label",
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRespuestaLogin": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"username": {
+						"type": "string"
+					},
+					"nombre": {
+						"type": "string"
+					},
+					"funcion": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"roles": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"accessToken": {
+						"type": "string"
+					},
+					"menu": {
+						"items": {
+							"$ref": "#/components/schemas/IJsonMenu"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"username",
+					"nombre",
+					"funcion",
+					"email",
+					"roles",
+					"accessToken",
+					"menu"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ISignInInput": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_IUserRepository.Exclude_keyofIUserRepository.password__": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"sistema": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IUserRepository.password_": {
+				"$ref": "#/components/schemas/Pick_IUserRepository.Exclude_keyofIUserRepository.password__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "apiKey",
+				"name": "auth-token",
+				"in": "header",
+				"description": "The authorization token"
+			}
+		}
+	},
+	"info": {
+		"title": "backend-pelom",
+		"version": "1.0.0",
+		"description": "Backend para Webapp Pelom",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Héctor Miranda"
+		}
+	},
+	"paths": {
+		"/obras/backoffice/general/v1/alltipoobras": {
+			"get": {
+				"operationId": "FindAllTipoObra",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los tipo de Obra",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auth/v1/signin": {
+			"post": {
+				"operationId": "SignIn",
+				"responses": {
+					"201": {
+						"description": "usuario ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IRespuestaLogin"
+								}
+							}
+						}
+					}
+				},
+				"description": "Función de Login",
+				"tags": [
+					"Autenticación"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ISignInInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/v1/consultatest": {
+			"get": {
+				"operationId": "ConsultaTest",
+				"responses": {
+					"200": {
+						"description": "consulta ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Autenticación"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auth/v1/signout": {
+			"post": {
+				"operationId": "SignOut",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Autenticación"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auth/v1/me": {
+			"post": {
+				"operationId": "Me",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Omit_IUserRepository.password_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get the current user.",
+				"tags": [
+					"Autenticación"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:7080/api"
+		}
+	]
+}

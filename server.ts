@@ -1,24 +1,30 @@
 import express, { Application } from "express";
 import Server from "./src/index";
+import { RegisterRoutes } from "./src/routes/routes";
 
-import swaggerUi from "swagger-ui-express";
 import bodyParser from 'body-parser';
 
-const swaggerFile = require('./swagger-output.json')
+import * as swaggerJson from "./src/swagger.json";
+import * as swaggerUI from "swagger-ui-express";
+import { errorMiddleware } from "./src/middleware/error.middleware";
 
 
 const app: Application = express();
 const server: Server = new Server(app);
-const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
+const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 7080;
 
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
-app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
+RegisterRoutes(app);
+app.use(["/openapi", "/docs", "/swagger"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
+
+//esta línea debe ir después de RegisterRoutes
+app.use(errorMiddleware);
 
 app
   .listen(PORT, "localhost", function () {
-    console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server in http://localhost:${PORT}/swagger`);
   })
   .on("error", (err: any) => {
     if (err.code === "EADDRINUSE") {
