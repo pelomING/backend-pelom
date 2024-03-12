@@ -5,7 +5,6 @@ import {
   Body, Controller, Get, Path, Post, Query, Route, Tags, SuccessResponse, Request, Security, Middlewares} from "tsoa";
 import { ISignInInput, IRespuestaLogin, IUserRepository } from "../interfaces/auth.interface";
 import { HttpStatus } from "../interfaces/httpStatus";
-import HttpException from "../common/http-exception";
 
 
 @Route("/auth/v1")
@@ -26,10 +25,6 @@ export class AuthController {
     {
         const user = await AuthRepository.signIn(credencialesUsuario);
         
-        /*
-        if (!user) {
-            throw new Error("Usuario no existe");
-        }*/
         req.session = { token: user.accessToken };
         const salida: IRespuestaLogin = {
           id: user.id?user.id:0,
@@ -48,22 +43,9 @@ export class AuthController {
     @Get("/consultatest")
     @Middlewares(verifyToken)
     async consultaTest(@Request() req: express.Request): Promise<string>  {
-        /*
-        console.log("consultaTest --> ", req.headers);
-        const token = req.headers["x-access-token"]?req.headers["x-access-token"]:"nulo";
-        console.log("token --> ", token);
-        const test = await AuthRepository.consultaTest();
-        res.status(200).send(test);
-        
-        if (req.error.statusCode) {
-            throw new HttpException(req.error.statusCode, req.error.message);
-        }
-        */
        
             console.log("consultaTest --> ", req.user);
             return req.user.username?req.user.username:"no ok";
-      
-      
     }
 
     @SuccessResponse(HttpStatus.OK)

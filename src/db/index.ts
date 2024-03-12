@@ -13,6 +13,8 @@ import VerificaAuth from "../models/auth/verificaAuth.model";
 import Delegacion from "../models/obras/delegacion.model";
 import TipoTrabajo from "../models/obras/tipoTrabajo.model";
 import EmpresaContratista from "../models/obras/empresaContratista.model";
+import CoordinadorContratista from "src/models/obras/coordinadorContratista.model";
+import Comuna from "src/models/comun/comuna.model";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -44,8 +46,10 @@ class Database {
         UsuariosFunciones,
         VerificaAuth, 
 
+        Comuna,
         Zonal,
 
+        CoordinadorContratista,
         Delegacion,
         EmpresaContratista,
         MaestroActividad,
