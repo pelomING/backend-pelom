@@ -13,8 +13,14 @@ import VerificaAuth from "../models/auth/verificaAuth.model";
 import Delegacion from "../models/obras/delegacion.model";
 import TipoTrabajo from "../models/obras/tipoTrabajo.model";
 import EmpresaContratista from "../models/obras/empresaContratista.model";
-import CoordinadorContratista from "src/models/obras/coordinadorContratista.model";
-import Comuna from "src/models/comun/comuna.model";
+import CoordinadorContratista from "../models/obras/coordinadorContratista.model";
+import Comuna from "../models/comun/comuna.model";
+import EstadoObra from "../models/obras/estadoObra.model";
+import EstadoVisita from "../models/obras/estadoVisita.model";
+import Segmento from "../models/obras/segmento.model";
+import TipoOperacion from "../models/obras/tipoOperacion.model";
+import HttpException from "src/common/http-exception";
+import { HttpStatus } from "src/interfaces/httpStatus";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -52,9 +58,13 @@ class Database {
         CoordinadorContratista,
         Delegacion,
         EmpresaContratista,
+        EstadoObra,
+        EstadoVisita,
         MaestroActividad,
+        Segmento,
         TipoActividad,
-        TipoObra, 
+        TipoObra,
+        TipoOperacion,
         TipoTrabajo]
         
       //models: ["../models/**/*.model.ts"]
@@ -64,10 +74,11 @@ class Database {
     await this.sequelize
       .authenticate()
       .then(() => {
-        console.log("Connection has been established successfully.");
+        //console.log("Connection has been established successfully.");
       })
       .catch((err) => {
         console.error("Unable to connect to the Database:", err);
+        throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al conectar con la base de datos");
       });
   }
 }

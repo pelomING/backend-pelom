@@ -29,7 +29,7 @@ export default class Server {
     );
   }
 
-  private syncDatabase(): void {
+  private syncDatabase(): any {
     const db = new Database();
     db.sequelize?.sync();
   }

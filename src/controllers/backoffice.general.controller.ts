@@ -18,4 +18,26 @@ export class BackofficeGeneralController {
         const tipoObra = await BackofficeGeneralRepository.findAllTipoObra();       
         return tipoObra;
     }
+
+    /**
+     * Devuelve todos los tipo de Operacion
+     * */
+    @SuccessResponse("200", "ok")
+    @Get("/alltipoperacion")
+    @Middlewares([verifyToken, revisaPermisos("obras.backoffice.general", "leer")])
+    async findAllTipoOperacion(): Promise<any> {
+        const tipoOperacion = await BackofficeGeneralRepository.findAllTipoOperacion();
+        return tipoOperacion;
+    }
+
+    /**
+     * Devuelve todos los registros de maestro actividad
+     * */
+    @SuccessResponse("200", "ok")
+    @Get("/allmaestroactividad")
+    @Middlewares([verifyToken, revisaPermisos("obras.backoffice.general", "leer")])
+    async findAllMaestroActividad(): Promise<any> {
+        const maestroActividad = await BackofficeGeneralRepository.findAllMaestroActividad();
+        return maestroActividad;
+    }
 }

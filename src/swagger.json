@@ -179,6 +179,48 @@
 				"parameters": []
 			}
 		},
+		"/obras/backoffice/general/v1/alltipoperacion": {
+			"get": {
+				"operationId": "FindAllTipoOperacion",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los tipo de Operacion",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allmaestroactividad": {
+			"get": {
+				"operationId": "FindAllMaestroActividad",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de maestro actividad",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/auth/v1/signin": {
 			"post": {
 				"operationId": "SignIn",

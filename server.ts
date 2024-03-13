@@ -11,7 +11,9 @@ import { errorMiddleware } from "./src/middleware/error.middleware";
 
 const app: Application = express();
 const server: Server = new Server(app);
+
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 7080;
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
