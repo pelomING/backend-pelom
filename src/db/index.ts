@@ -19,8 +19,8 @@ import EstadoObra from "../models/obras/estadoObra.model";
 import EstadoVisita from "../models/obras/estadoVisita.model";
 import Segmento from "../models/obras/segmento.model";
 import TipoOperacion from "../models/obras/tipoOperacion.model";
-import HttpException from "src/common/http-exception";
-import { HttpStatus } from "src/interfaces/httpStatus";
+import HttpException from "../common/http-exception";
+import { HttpStatus } from "../interfaces/httpStatus";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -30,6 +30,11 @@ class Database {
   }
 
   private async connectToDatabase() {
+    console.log('process.env.DATABASE_URL -> ', process.env.DATABASE_URL);
+    console.log('process.env.DATABASE_NAME -> ', process.env.DATABASE_NAME);
+    console.log('process.env.PUBLIC_DOMAIN -> ', process.env.PUBLIC_DOMAIN);
+    console.log('process.env.PORT -> ', process.env.PORT);
+
     this.sequelize = new Sequelize({
       database: config.DB,
       username: config.USER,

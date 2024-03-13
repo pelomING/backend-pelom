@@ -1,8 +1,13 @@
+import { ConnectionString } from "connection-string";
+
+const database_url = process.env.DATABASE_URL;
+const write_uri = new ConnectionString(database_url);
+
 export const config = {
-  HOST: "localhost",
-  USER: "admin_pelom",
-  PASSWORD: "admin_pelom",
-  DB: "pelom-db",
+  HOST: write_uri.host,
+  USER: write_uri.user,
+  PASSWORD: write_uri.password,
+  DB: process.env.DATABASE_NAME,
   pool: {
     max: 5,
     min: 0,
