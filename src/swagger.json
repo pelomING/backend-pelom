@@ -7,6 +7,40 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"IMensajeHome": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"mensaje": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"mensaje"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IHomePage": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"routerlink": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"routerlink"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Pick_IMenuItem.Exclude_keyofIMenuItem.orden__": {
 				"properties": {
 					"label": {
@@ -73,6 +107,22 @@
 							"type": "string"
 						},
 						"type": "array"
+					},
+					"mensaje": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IMensajeHome"
+							}
+						],
+						"nullable": true
+					},
+					"homepage": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IHomePage"
+							}
+						],
+						"nullable": true
 					},
 					"accessToken": {
 						"type": "string"
@@ -219,6 +269,37 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/maestroactividadporid": {
+			"get": {
+				"operationId": "FindOneMaestroActividad",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Consulta un registro de maestro actividad por id",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/auth/v1/signin": {

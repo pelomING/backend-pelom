@@ -33,6 +33,8 @@ export class AuthController {
           funcion: user.funcion?user.funcion:"",
           email: user.email?user.email:"",
           roles: user.roles?user.roles:[],
+          mensaje: user.mensaje?user.mensaje:null,
+          homepage: user.homepage?user.homepage:null,
           accessToken: user.accessToken?user.accessToken:"",
           menu: user.menu?user.menu:[]
       };

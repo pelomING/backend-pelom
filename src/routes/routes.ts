@@ -13,6 +13,24 @@ import type { RequestHandler, Router } from 'express';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "IMensajeHome": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "mensaje": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IHomePage": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "routerlink": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_IMenuItem.Exclude_keyofIMenuItem.orden__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"label":{"dataType":"string","required":true},"icon":{"dataType":"string","required":true},"routerLink":{"dataType":"string","required":true}},"validators":{}},
@@ -41,6 +59,8 @@ const models: TsoaRoute.Models = {
             "funcion": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "roles": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "mensaje": {"dataType":"union","subSchemas":[{"ref":"IMensajeHome"},{"dataType":"enum","enums":[null]},{"dataType":"undefined"}],"required":true},
+            "homepage": {"dataType":"union","subSchemas":[{"ref":"IHomePage"},{"dataType":"enum","enums":[null]},{"dataType":"undefined"}],"required":true},
             "accessToken": {"dataType":"string","required":true},
             "menu": {"dataType":"array","array":{"dataType":"refObject","ref":"IJsonMenu"},"required":true},
         },
@@ -142,6 +162,31 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.findAllMaestroActividad.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/maestroactividadporid',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findOneMaestroActividad)),
+
+            function BackofficeGeneralController_findOneMaestroActividad(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"query","name":"id","required":true,"dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findOneMaestroActividad.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, 200, next);
             } catch (err) {
                 return next(err);

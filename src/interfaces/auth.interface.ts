@@ -23,6 +23,17 @@ interface IMenuItem {
     routerLink: string;
     orden: number;
 }
+
+interface IMensajeHome {
+    id: number;
+    mensaje: string;
+}
+
+interface IHomePage {
+    id: number;
+    routerlink: string;
+}
+
 interface IJsonMenu {
     label: string;
     items: Array<Omit<IMenuItem, "orden">>;
@@ -34,6 +45,8 @@ interface IRespuestaLogin {
     funcion: string;
     email: string;
     roles: string[];
+    mensaje: IMensajeHome | null | undefined;
+    homepage: IHomePage | null | undefined;
     accessToken: string;
     menu: Array<IJsonMenu>;
 }
@@ -49,4 +62,13 @@ interface IAuthRepository {
 }
 
 
-export { IAuthRepository, IUserRepository, IRoleRepository, ISignInInput, IRespuestaLogin, IJsonMenu, IMenuItem };
+export { 
+    IAuthRepository, 
+    IUserRepository, 
+    IRoleRepository, 
+    ISignInInput, 
+    IRespuestaLogin, 
+    IJsonMenu, 
+    IMenuItem,
+    IMensajeHome,
+    IHomePage};

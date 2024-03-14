@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const IdSchema = z.number().int().min(1);
+
 const ITipoObraSchema = z.object({
     //id: z.string().transform((value) => parseInt(value)),
     id: z.coerce.number().int(),
@@ -50,11 +52,60 @@ type IMaestroActividad = z.infer<typeof IMaestroActividadSchema>;
 
 interface IBackofficeGeneralRepository {
     findAllMaestroActividad(): Promise<Array<IMaestroActividad>>
+    findOneMaestroActividad(id: number): Promise<IMaestroActividad | null | undefined>;
+    findAllMaestroActividadByActividad(actividad: string): Promise<Array<IMaestroActividad>>
+}
+/////////////////////////////////////////////////////
+const IZonalSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string()
+})
+
+type IZonal = z.infer<typeof IZonalSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllZonales(): Promise<Array<IZonal>>
+}
+/////////////////////////////////////////////////////
+const IDelegacionSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string()
+})
+
+type IDelegacion = z.infer<typeof IDelegacionSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllDelegaciones(): Promise<Array<IDelegacion>>
+}
+/////////////////////////////////////////////////////
+const ITipoTrabajoSchema = z.object({
+    id: z.coerce.number().int(),
+    descripcion: z.string()
+})
+
+type ITipoTrabajo = z.infer<typeof ITipoTrabajoSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllTipoTrabajo(): Promise<Array<ITipoTrabajo>>
+}
+/////////////////////////////////////////////////////
+const IEmpresaContratistaSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string(),
+    rut: z.string()
+})
+
+type IEmpresaContratista = z.infer<typeof IEmpresaContratistaSchema>;               
+
+interface IBackofficeGeneralRepository {
+    findAllEmpresasContratistas(): Promise<Array<IEmpresaContratista>>
 }
 /////////////////////////////////////////////////////
 
+
 export { 
     IBackofficeGeneralRepository, 
+    IdSchema,
     ITipoObraSchema, 
     ITipoObra, 
     ITipoOperacionSchema, 
@@ -62,4 +113,12 @@ export {
     ITipoActividadSchema,
     ITipoActividad,
     IMaestroActividadSchema,
-    IMaestroActividad};
+    IMaestroActividad,
+    IZonalSchema,
+    IZonal,
+    IDelegacionSchema,
+    IDelegacion,
+    ITipoTrabajoSchema,
+    ITipoTrabajo,
+    IEmpresaContratistaSchema,
+    IEmpresaContratista};

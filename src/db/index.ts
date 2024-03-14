@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { config, dialect, define } from "../config/db.config";
+import HttpException from "../common/http-exception";
+import { HttpStatus } from "../interfaces/httpStatus";
 import Role from "../models/auth/role.model";
 import User from "../models/auth/user.model";
 import UserRoles from "../models/auth/userRoles.model";
@@ -19,8 +21,7 @@ import EstadoObra from "../models/obras/estadoObra.model";
 import EstadoVisita from "../models/obras/estadoVisita.model";
 import Segmento from "../models/obras/segmento.model";
 import TipoOperacion from "../models/obras/tipoOperacion.model";
-import HttpException from "../common/http-exception";
-import { HttpStatus } from "../interfaces/httpStatus";
+import VerHomepage from "../models/frontend/verHomepage.model";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -30,16 +31,13 @@ class Database {
   }
 
   private async connectToDatabase() {
-    console.log('process.env.DATABASE_URL -> ', process.env.DATABASE_URL);
-    console.log('process.env.DATABASE_NAME -> ', process.env.DATABASE_NAME);
-    console.log('process.env.PUBLIC_DOMAIN -> ', process.env.PUBLIC_DOMAIN);
-    console.log('process.env.PORT -> ', process.env.PORT);
 
     this.sequelize = new Sequelize({
       database: config.DB,
       username: config.USER,
       password: config.PASSWORD,
       host: config.HOST,
+      port: config.PORT,
       dialect: dialect,
       define: define,
       pool: {
@@ -50,16 +48,19 @@ class Database {
       },
       
       models: [
+        //Auth
         Menu,
         Role, 
         User, 
         UserRoles, 
         UsuariosFunciones,
         VerificaAuth, 
-
+        //Comun
         Comuna,
         Zonal,
-
+        //Frontend
+        VerHomepage,
+        //Obras
         CoordinadorContratista,
         Delegacion,
         EmpresaContratista,

@@ -2,6 +2,7 @@ import { config } from "../config/auth.config";
 import { IAuthRepository, ISignInInput, IRespuestaLogin, IMenuItem, IJsonMenu } from "../interfaces/auth.interface";
 import User from "../models/auth/user.model";
 import UsuariosFunciones from "../models/auth/usuariosFunciones.model";
+import VerHomepage from "../models/frontend/verHomepage.model";
 import Menu from "../models/auth/menu.model";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -61,7 +62,24 @@ export class AuthRepository implements IAuthRepository {
                 if (userFuncion) {
                     funcion = userFuncion.funcion?userFuncion.funcion.toUpperCase():"";
                 }
-                const menuUsuario = await Menu.findAll({ where: { rol_id: idRole[0]?idRole[0]:0 } });
+                const rol_consulta = idRole[0]?idRole[0]:0;
+
+                //Si usuario = password debe cambiar la password de inmediato para utilizar el sistema
+                //mensaje=2 es para cambio de password, mensaje=1 es normal
+                const mensaje_id = buscaUser.username===buscaUser.password?2:1; 
+
+                //consulta el mensaje de inicio y el homepage de acuerdo al numero de mensaje y rol
+                const verHomepage = await VerHomepage.findOne({ attributes: ['mensaje', 'homepage'], where: { mensajeId: mensaje_id, rolId: rol_consulta}});
+    
+                const mensajeMenu = verHomepage?.mensaje?verHomepage.mensaje:null;
+                const homepage = verHomepage?.homepage?verHomepage.homepage:null;
+
+                //si requeire cambio de password deb ir con id_servicio = 0
+                const where = buscaUser.username===buscaUser.password?{ rol_id: rol_consulta, id_servicio: 0 }:{ rol_id: rol_consulta };
+                //En la tabla Menu se especifican los campos porque el sequelize agrega 
+                //por defecto un campo id que no existe en la tabla Menu
+                const menuUsuario = await Menu.findAll({attributes: ['rol_id', 'rol_modulo_id', 'label', 'items', 'orden', 'id_servicio'], 
+                                                        where: where });
 
                 function compararPorCampo(a: IMenuItem, b: IMenuItem) {
                     if (a.orden < b.orden) {
@@ -98,6 +116,8 @@ export class AuthRepository implements IAuthRepository {
                     funcion: funcion,
                     email: user.email?user.email:"",
                     roles: authorities,
+                    mensaje: mensajeMenu,
+                    homepage: homepage,
                     accessToken: token,
                     menu: menu_salida
                 };

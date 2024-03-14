@@ -3,19 +3,10 @@ import { IMenuItem } from "../../interfaces/auth.interface";
 
 
 @Table({
-    tableName: "ver_menu",
-    schema: "_frontend",
+    tableName: "ver_menu_new",
+    schema: "_frontend"
 })
 export default class Menu extends Model {
-
-    @Column({
-        type: DataType.BIGINT,
-        primaryKey: true,
-        autoIncrement: true,
-        field: "id"
-    })
-    id?: number;
-
 
    @Column({
         type: DataType.INTEGER,
@@ -40,4 +31,21 @@ export default class Menu extends Model {
         field: "items"
     })
     items?: Array<IMenuItem>;
+
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+        field: "orden"
+    })
+    orden?: number;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+        field: "id_servicio"
+    })
+    id_servicio?: number;
+
+    
 }
