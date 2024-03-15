@@ -1,10 +1,10 @@
 import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 @Table({
-    tableName: "estado_visita",
+    tableName: "recargos",
     schema: "obras",
   })
-  export default class EstadoVisita extends Model {
+  export default class Recargos extends Model {
 
     @Column({
       type: DataType.INTEGER,
@@ -17,17 +17,22 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
     @Column({
       type: DataType.STRING(255),
       allowNull: false,
-      unique: true,
       field: "nombre"
     })
     nombre?: string;
-  
+
+
     @Column({
       type: DataType.INTEGER,
       allowNull: false,
-      field: "estado_obra_resultante"
+      field: "id_tipo_recargo"
     })
-    estado_obra_resultante?: number;
+    id_tipo_recargo?: number
+  
+    @Column({
+      type: DataType.FLOAT,
+      field: "porcentaje"
+    })
+    porcentaje?: string;
   
   }
-  

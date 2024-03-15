@@ -24,8 +24,8 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
   
     @Column({
       type: DataType.STRING(255),
-      field: "descripçion"
+      field: "descripcion"
     })
-    descripçion?: string;
+    descripcion?: string;
   
   }

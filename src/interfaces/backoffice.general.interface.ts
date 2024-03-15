@@ -101,7 +101,117 @@ interface IBackofficeGeneralRepository {
     findAllEmpresasContratistas(): Promise<Array<IEmpresaContratista>>
 }
 /////////////////////////////////////////////////////
+const ICoordinadorContratistaSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string(),
+    id_empresa: z.coerce.number().int(),
+    rut: z.string()
+})
 
+type ICoordinadorContratista = z.infer<typeof ICoordinadorContratistaSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllCoordinadoresContratistas(): Promise<Array<ICoordinadorContratista>>
+}
+/////////////////////////////////////////////////////
+const IComunaSchema = z.object({
+    codigo: z.string(),
+    nombre: z.string(),
+    provincia: z.string()
+})
+
+type IComuna = z.infer<typeof IComunaSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllComunas(): Promise<Array<IComuna>>
+}
+/////////////////////////////////////////////////////
+const IEstadoObraSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string(),
+    color: z.string()
+})
+
+type IEstadoObra = z.infer<typeof IEstadoObraSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllEstadosObra(): Promise<Array<IEstadoObra>>
+}
+/////////////////////////////////////////////////////
+const IEstadoVisitaSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string(),
+    estado_obra_resultante: z.coerce.number().int()
+})
+
+type IEstadoVisita = z.infer<typeof IEstadoVisitaSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllEstadosVisita(): Promise<Array<IEstadoVisita>>
+}
+/////////////////////////////////////////////////////
+const ISegmentoSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string(),
+    descripcion: z.string()
+})
+
+type ISegmento = z.infer<typeof ISegmentoSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllSegmentos(): Promise<Array<ISegmento>>
+}
+/////////////////////////////////////////////////////
+const IOficinaSupervisorSchema = z.object({
+    id: z.coerce.number().int(),
+    oficina: z.string(),
+    supervisor: z.string()
+})
+
+type IOficinaSupervisor = z.infer<typeof IOficinaSupervisorSchema>
+
+interface IBackofficeGeneralRepository {
+    findAllOficinasSupervisores(): Promise<Array<IOficinaSupervisor >>
+}
+/////////////////////////////////////////////////////
+const IRecargoDistanciaSchema = z.object({
+    id: z.coerce.number().int(),
+    nombre: z.string(),
+    porcentaje: z.coerce.number()
+})
+
+type IRecargoDistancia = z.infer<typeof IRecargoDistanciaSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllRecargosDistancias(): Promise<Array<IRecargoDistancia>>
+}
+/////////////////////////////////////////////////////
+const IResumenGeneralSchema = z.object({
+    servicio: z.string(),
+    produccion: z.string()
+})
+
+type IResumenGeneral = z.infer<typeof IResumenGeneralSchema>;
+
+interface IBackofficeGeneralRepository {
+    getResumenGeneral(): Promise<Array<IResumenGeneral>>
+}
+/////////////////////////////////////////////////////
+const IUsuariosFuncionesSchema = z.object({
+    id: z.coerce.number().int(),
+    username: z.string(),
+    email: z.string(),
+    funcion: z.string(),
+    nombres: z.string(),
+    fecha_password: z.string()
+})
+
+type IUsuariosFunciones = z.infer<typeof IUsuariosFuncionesSchema>;
+
+interface IBackofficeGeneralRepository {
+    findAllUsuariosFunciones(): Promise<Array<IUsuariosFunciones>>
+}
+/////////////////////////////////////////////////////
 
 export { 
     IBackofficeGeneralRepository, 
@@ -121,4 +231,23 @@ export {
     ITipoTrabajoSchema,
     ITipoTrabajo,
     IEmpresaContratistaSchema,
-    IEmpresaContratista};
+    IEmpresaContratista,
+    ICoordinadorContratistaSchema,
+    ICoordinadorContratista,
+    IComunaSchema,
+    IComuna,
+    IEstadoObraSchema,
+    IEstadoObra,
+    IEstadoVisitaSchema,
+    IEstadoVisita,
+    ISegmentoSchema,
+    ISegmento,
+    IOficinaSupervisorSchema,
+    IOficinaSupervisor,
+    IRecargoDistanciaSchema,
+    IRecargoDistancia,
+    IResumenGeneralSchema,
+    IResumenGeneral,
+    IUsuariosFuncionesSchema,
+    IUsuariosFunciones
+};

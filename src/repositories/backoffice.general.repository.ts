@@ -17,16 +17,41 @@ import  {
     IZonal,
     IZonalSchema,
     IEmpresaContratista,
-    IEmpresaContratistaSchema} from "../interfaces/backoffice.general.interface";
+    IEmpresaContratistaSchema,
+    ICoordinadorContratista,
+    ICoordinadorContratistaSchema,
+    IComuna,
+    IComunaSchema,
+    IEstadoObra,
+    IEstadoObraSchema,
+    IEstadoVisita,
+    IEstadoVisitaSchema,
+    ISegmento,
+    ISegmentoSchema,
+    IOficinaSupervisor,
+    IOficinaSupervisorSchema,
+    IRecargoDistancia,
+    IRecargoDistanciaSchema,
+    IResumenGeneral,
+    IResumenGeneralSchema,
+    IUsuariosFunciones,
+    IUsuariosFuncionesSchema} from "../interfaces/backoffice.general.interface";
 import TipoObra from "../models/obras/tipoObra.model";
 import { HttpStatus } from "../interfaces/httpStatus";
 import TipoOperacion from "../models/obras/tipoOperacion.model";
 import TipoActividad from "../models/obras/tipoActividad.model";
 import Database from "../db/index";
-import Zonal from "src/models/comun/zonal.model";
-import Delegacion from "src/models/obras/delegacion.model";
-import TipoTrabajo from "src/models/obras/tipoTrabajo.model";
-import EmpresaContratista from "src/models/obras/empresaContratista.model";
+import Zonal from "../models/comun/zonal.model";
+import Delegacion from "../models/obras/delegacion.model";
+import TipoTrabajo from "../models/obras/tipoTrabajo.model";
+import EmpresaContratista from "../models/obras/empresaContratista.model";
+import CoordinadorContratista from "../models/obras/coordinadorContratista.model";
+import Comuna from "../models/comun/comuna.model";
+import EstadoObra from "../models/obras/estadoObra.model";
+import EstadoVisita from "../models/obras/estadoVisita.model";
+import Segmento from "../models/obras/segmento.model";
+import UsuariosFunciones from "../models/auth/usuariosFunciones.model";
+import Recargos from "../models/obras/recargo.model";
 
 
 export class BackofficeGeneralRepository implements IBackofficeGeneralRepository {
@@ -246,6 +271,174 @@ export class BackofficeGeneralRepository implements IBackofficeGeneralRepository
         } catch (error) {
             console.log(error);
             throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener las empresas contratistas");
+        }
+    }
+
+    async findAllCoordinadoresContratistas(): Promise<Array<ICoordinadorContratista>> {
+        try {
+            const coordinadorContratista = await CoordinadorContratista.findAll( { order: [['id', 'ASC']] } );
+            const salida: Array<ICoordinadorContratista> = coordinadorContratista.map( (element: any) => {
+                const respuesta = ICoordinadorContratistaSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener las coordinadores contratistas");
+        }
+    }
+
+    async findAllComunas(): Promise<Array<IComuna>> {
+        try {
+            const Sequelize = require("sequelize");
+            const Op = Sequelize.Op;
+            const comuna = await Comuna.findAll( { where: { provincia: { [Op.like]: '07%' } }, order: [['nombre', 'ASC']], } );
+            const salida: Array<IComuna> = comuna.map( (element: any) => {
+                const respuesta = IComunaSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener las comunas");
+        }
+    }
+
+    async findAllEstadosObra(): Promise<Array<IEstadoObra>> {
+        try {
+            const estadoObra = await EstadoObra.findAll( { order: [['id', 'ASC']] } );
+            const salida: Array<IEstadoObra> = estadoObra.map( (element: any) => {
+                const respuesta = IEstadoObraSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener los estados de obra");
+        }
+    }
+
+    async findAllEstadosVisita(): Promise<Array<IEstadoVisita>> {
+        try {
+            const estadoVisita = await EstadoVisita.findAll( { order: [['id', 'ASC']] } );
+            const salida: Array<IEstadoVisita> = estadoVisita.map( (element: any) => {
+                const respuesta = IEstadoVisitaSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener los estados de visita");
+        }
+    }
+
+    async findAllSegmentos(): Promise<Array<ISegmento>> {
+        try {
+            const segmento = await Segmento.findAll( { order: [['id', 'ASC']] } );
+            const salida: Array<ISegmento> = segmento.map( (element: any) => {
+                const respuesta = ISegmentoSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener los segmentos");
+        }
+    }
+
+    async findAllOficinasSupervisores(): Promise<Array<IOficinaSupervisor>> {
+        try {
+            const db = new Database();
+            const sql = `
+                        SELECT 
+                            os.id, 
+                            o.nombre as oficina, 
+                            so.nombre as supervisor 
+                        FROM 
+                            obras.oficina_supervisor os 
+                        JOIN 
+                            _comun.oficinas o ON os.oficina = o.id 
+                        JOIN 
+                            obras.supervisores_contratista so ON os.supervisor = so.id`;
+
+            const { QueryTypes } = require('sequelize');
+            const sequelize = db.sequelize;
+            const oficinasSupervisores = await sequelize?.query(sql, { type: QueryTypes.SELECT });
+            if (!oficinasSupervisores) {
+                return [];
+            }
+            const salida: Array<IOficinaSupervisor> = oficinasSupervisores?.map( (element: any) => {
+                const respuesta = IOficinaSupervisorSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener las oficinas supervisores");
+        }
+    }
+
+    async findAllRecargosDistancias(): Promise<Array<IRecargoDistancia>> {
+        try {
+            const recargosDistancia = await Recargos.findAll( { 
+                attributes: ['id', 'nombre', 'porcentaje'], 
+                where: { id_tipo_recargo: 2 },
+                order: [['id', 'ASC']] } );
+            const salida: Array<IRecargoDistancia> = recargosDistancia.map( (element: any) => {
+                const respuesta = IRecargoDistanciaSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener los recargos por distancia");
+        }
+    }
+
+    async getResumenGeneral(): Promise<Array<IResumenGeneral>> {
+        try {
+            const resumenGeneral = [
+                {
+                  "servicio": "SAE",
+                  "produccion": "$ 45.784.234"
+                },
+                {
+                  "servicio": "OBRAS",
+                  "produccion": "$ 120.784.234"
+                },
+                {
+                  "servicio": "PODA",
+                  "produccion": "$ 12.784.234"
+                },
+                {
+                  "servicio": "TLD",
+                  "produccion": "$ 23.784.234"
+                }
+              ];
+            const salida: Array<IResumenGeneral> = resumenGeneral.map( (element: any) => {
+                const respuesta = IResumenGeneralSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener el resumen general");
+        }
+    }
+
+    async findAllUsuariosFunciones(): Promise<Array<IUsuariosFunciones>> {
+        try {
+            const usuariosFunciones = await UsuariosFunciones.findAll( { 
+                                            attributes: ['id', 'username', 'email', 'funcion', 'nombres', 'fecha_password'], 
+                                            order: [['username', 'ASC']] } );
+            const salida: Array<IUsuariosFunciones> = usuariosFunciones.map( (element: any) => {
+                const respuesta = IUsuariosFuncionesSchema.parse(element);
+                return respuesta;
+            })
+            return salida;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener las funciones de los usuarios");
         }
     }
 }

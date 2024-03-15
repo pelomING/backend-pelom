@@ -25,6 +25,6 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
         allowNull: false,
         field: "provincia"
       })
-      provincia?: string;
+    provincia?: string;
   
   }

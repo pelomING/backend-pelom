@@ -22,6 +22,7 @@ import EstadoVisita from "../models/obras/estadoVisita.model";
 import Segmento from "../models/obras/segmento.model";
 import TipoOperacion from "../models/obras/tipoOperacion.model";
 import VerHomepage from "../models/frontend/verHomepage.model";
+import Recargos from "../models/obras/recargo.model";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -67,6 +68,7 @@ class Database {
         EstadoObra,
         EstadoVisita,
         MaestroActividad,
+        Recargos,
         Segmento,
         TipoActividad,
         TipoObra,

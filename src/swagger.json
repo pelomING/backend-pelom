@@ -250,6 +250,27 @@
 				"parameters": []
 			}
 		},
+		"/obras/backoffice/general/v1/alltipoactividad": {
+			"get": {
+				"operationId": "FindAllTipoActividad",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los tipo de Actividad",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/obras/backoffice/general/v1/allmaestroactividad": {
 			"get": {
 				"operationId": "FindAllMaestroActividad",
@@ -300,6 +321,309 @@
 						}
 					}
 				]
+			}
+		},
+		"/obras/backoffice/general/v1/maestroactividadporactividad": {
+			"get": {
+				"operationId": "FindAllMaestroActividadByActividad",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Consulta un registro de maestro actividad por codigo actividad",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "actividad",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/obras/backoffice/general/v1/allzonales": {
+			"get": {
+				"operationId": "FindAllZonales",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de las zonales",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/alldelegaciones": {
+			"get": {
+				"operationId": "FindAllDelegaciones",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de las delegaciones",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/alltipotrabajos": {
+			"get": {
+				"operationId": "FindAllTipoTrabajo",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los tipo trabajo",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allempresacontratistas": {
+			"get": {
+				"operationId": "FindAllEmpresasContratistas",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de las empresas contratistas",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allcoordinadorcontratistas": {
+			"get": {
+				"operationId": "FindAllCoordinadoresContratistas",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los coordinadores contratistas",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allcomunas": {
+			"get": {
+				"operationId": "FindAllComunas",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de las comunas",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allestados": {
+			"get": {
+				"operationId": "FindAllEstadosObra",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los Estados de Obra",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allestadovisitas": {
+			"get": {
+				"operationId": "FindAllEstadosVisita",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los Estados de Visita",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allsegmentos": {
+			"get": {
+				"operationId": "FindAllSegmentos",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los Segmentos",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/alloficinasupervisor": {
+			"get": {
+				"operationId": "FindAllOficinasSupervisores",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de las oficinas",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allrecargospordistancia": {
+			"get": {
+				"operationId": "FindAllRecargosDistancias",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los recargos",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/resumengeneral": {
+			"get": {
+				"operationId": "GetResumenGeneral",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve el resumen general",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/general/v1/allusuarios": {
+			"get": {
+				"operationId": "FindAllUsuariosFunciones",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Devuelve todos los registros de los usuarios",
+				"tags": [
+					"Obras - General"
+				],
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/auth/v1/signin": {

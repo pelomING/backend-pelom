@@ -144,6 +144,30 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/alltipoactividad',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllTipoActividad)),
+
+            function BackofficeGeneralController_findAllTipoActividad(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllTipoActividad.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/api/obras/backoffice/general/v1/allmaestroactividad',
             ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
             ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllMaestroActividad)),
@@ -187,6 +211,343 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.findOneMaestroActividad.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/maestroactividadporactividad',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllMaestroActividadByActividad)),
+
+            function BackofficeGeneralController_findAllMaestroActividadByActividad(request: any, response: any, next: any) {
+            const args = {
+                    actividad: {"in":"query","name":"actividad","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllMaestroActividadByActividad.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allzonales',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllZonales)),
+
+            function BackofficeGeneralController_findAllZonales(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllZonales.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/alldelegaciones',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllDelegaciones)),
+
+            function BackofficeGeneralController_findAllDelegaciones(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllDelegaciones.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/alltipotrabajos',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllTipoTrabajo)),
+
+            function BackofficeGeneralController_findAllTipoTrabajo(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllTipoTrabajo.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allempresacontratistas',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllEmpresasContratistas)),
+
+            function BackofficeGeneralController_findAllEmpresasContratistas(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllEmpresasContratistas.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allcoordinadorcontratistas',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllCoordinadoresContratistas)),
+
+            function BackofficeGeneralController_findAllCoordinadoresContratistas(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllCoordinadoresContratistas.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allcomunas',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllComunas)),
+
+            function BackofficeGeneralController_findAllComunas(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllComunas.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allestados',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllEstadosObra)),
+
+            function BackofficeGeneralController_findAllEstadosObra(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllEstadosObra.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allestadovisitas',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllEstadosVisita)),
+
+            function BackofficeGeneralController_findAllEstadosVisita(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllEstadosVisita.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allsegmentos',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllSegmentos)),
+
+            function BackofficeGeneralController_findAllSegmentos(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllSegmentos.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/alloficinasupervisor',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllOficinasSupervisores)),
+
+            function BackofficeGeneralController_findAllOficinasSupervisores(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllOficinasSupervisores.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allrecargospordistancia',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllRecargosDistancias)),
+
+            function BackofficeGeneralController_findAllRecargosDistancias(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllRecargosDistancias.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/resumengeneral',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.getResumenGeneral)),
+
+            function BackofficeGeneralController_getResumenGeneral(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.getResumenGeneral.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/general/v1/allusuarios',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllUsuariosFunciones)),
+
+            function BackofficeGeneralController_findAllUsuariosFunciones(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeGeneralController();
+
+
+              const promise = controller.findAllUsuariosFunciones.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, 200, next);
             } catch (err) {
                 return next(err);

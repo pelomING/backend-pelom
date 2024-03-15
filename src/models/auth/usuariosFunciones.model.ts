@@ -44,5 +44,17 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
     })
     nombres?: string;
 
+    @Column({
+      type: DataType.DATE,
+      field: "fecha_password"
+    })
+    fecha_password?: Date;
+
+    @Column({
+      type: DataType.INTEGER,
+      field: "cod_mensaje"
+    })
+    cod_mensaje?: number;
+
   }
   
