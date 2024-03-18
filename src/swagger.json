@@ -208,6 +208,36 @@
 		}
 	},
 	"paths": {
+		"/obras/backoffice/v1/allobras": {
+			"get": {
+				"operationId": "FindAllObra",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Obras - Backoffice - Obras"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "vista",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/obras/backoffice/general/v1/alltipoobras": {
 			"get": {
 				"operationId": "FindAllTipoObra",

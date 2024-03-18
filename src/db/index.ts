@@ -23,6 +23,10 @@ import Segmento from "../models/obras/segmento.model";
 import TipoOperacion from "../models/obras/tipoOperacion.model";
 import VerHomepage from "../models/frontend/verHomepage.model";
 import Recargos from "../models/obras/recargo.model";
+import Obra from "../models/obras/obra.model";
+import ObrasHistorialCambios from "../models/obras/obrasHistorialCambios.model";
+import ObrasCierres from "../models/obras/obrasCierres.model";
+import ObrasParalizacion from "../models/obras/obrasParalizacion.model";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -68,6 +72,10 @@ class Database {
         EstadoObra,
         EstadoVisita,
         MaestroActividad,
+        Obra,
+        ObrasCierres,
+        ObrasHistorialCambios,
+        ObrasParalizacion,
         Recargos,
         Segmento,
         TipoActividad,

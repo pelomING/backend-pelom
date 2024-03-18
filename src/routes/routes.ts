@@ -3,6 +3,8 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { BackofficeObrasController } from './../controllers/backoffice.obras.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { BackofficeGeneralController } from './../controllers/backoffice.general.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/auth.controller';
@@ -96,6 +98,31 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
+        app.get('/api/obras/backoffice/v1/allobras',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeObrasController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeObrasController.prototype.findAllObra)),
+
+            function BackofficeObrasController_findAllObra(request: any, response: any, next: any) {
+            const args = {
+                    vista: {"default":"","in":"query","name":"vista","dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeObrasController();
+
+
+              const promise = controller.findAllObra.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/api/obras/backoffice/general/v1/alltipoobras',
             ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController)),
             ...(fetchMiddlewares<RequestHandler>(BackofficeGeneralController.prototype.findAllTipoObra)),
