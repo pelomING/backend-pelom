@@ -30,9 +30,9 @@ const verifyToken = async (req: express.Request, res: express.Response, next: ex
   
         const user = {
           id: verified.id,
-          username: undefined,
-          email: undefined,
-          roles: undefined
+          username: verified.username,
+          email: verified.email,
+          roles: verified.roles
         }
   
   

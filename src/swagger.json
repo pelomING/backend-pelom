@@ -7,6 +7,222 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"IUsoSistema": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"fecha": {
+						"type": "string"
+					},
+					"dia": {
+						"type": "string"
+					},
+					"cantidad": {
+						"type": "number",
+						"format": "double"
+					},
+					"bg-color": {
+						"type": "string"
+					},
+					"text-color": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"fecha",
+					"dia",
+					"cantidad",
+					"bg-color",
+					"text-color"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IResponseUsoSistema": {
+				"properties": {
+					"maule_norte": {
+						"items": {
+							"$ref": "#/components/schemas/IUsoSistema"
+						},
+						"type": "array"
+					},
+					"maule_sur": {
+						"items": {
+							"$ref": "#/components/schemas/IUsoSistema"
+						},
+						"type": "array"
+					},
+					"total": {
+						"items": {
+							"$ref": "#/components/schemas/IUsoSistema"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"maule_norte",
+					"maule_sur",
+					"total"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IPeriodoSinRep": {
+				"properties": {
+					"desde": {
+						"type": "string"
+					},
+					"hasta": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"desde",
+					"hasta"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IDetalleSinRep": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"codigo_obra": {
+						"type": "string"
+					},
+					"fecha_ultimo": {
+						"type": "string"
+					},
+					"dias_sin_rep": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"codigo_obra",
+					"fecha_ultimo",
+					"dias_sin_rep"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IObrasSinRep": {
+				"properties": {
+					"cantidad": {
+						"type": "number",
+						"format": "double"
+					},
+					"periodo": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IPeriodoSinRep"
+							}
+						],
+						"nullable": true
+					},
+					"detalle": {
+						"items": {
+							"$ref": "#/components/schemas/IDetalleSinRep"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"cantidad",
+					"detalle"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ICreaBomOutput": {
+				"properties": {
+					"error": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"error",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ICreaBomInput": {
+				"properties": {
+					"id_obra": {
+						"type": "number",
+						"format": "double"
+					},
+					"reserva": {
+						"type": "number",
+						"format": "double"
+					},
+					"materiales": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id_obra",
+					"reserva",
+					"materiales"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IConsultaBomOutput": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"id_obra": {
+						"type": "number",
+						"format": "double"
+					},
+					"cod_reserva": {
+						"type": "number",
+						"format": "double"
+					},
+					"codigo_sap_material": {
+						"type": "number",
+						"format": "double"
+					},
+					"cantidad_requerida": {
+						"type": "number",
+						"format": "double"
+					},
+					"fecha_ingreso": {
+						"type": "string"
+					},
+					"rut_usuario": {
+						"type": "string"
+					},
+					"persona": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"id_obra",
+					"cod_reserva",
+					"codigo_sap_material",
+					"cantidad_requerida",
+					"fecha_ingreso",
+					"rut_usuario",
+					"persona"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"IMensajeHome": {
 				"properties": {
 					"id": {
@@ -163,6 +379,38 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IRespuestaCambioPass": {
+				"properties": {
+					"error": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"error",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ICambioPassInput": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"newPassword": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"newPassword"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Pick_IUserRepository.Exclude_keyofIUserRepository.password__": {
 				"properties": {
 					"id": {
@@ -208,6 +456,72 @@
 		}
 	},
 	"paths": {
+		"/obras/backoffice/usosistema/v1/alllogin": {
+			"get": {
+				"operationId": "GetLoginEnSistema",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IResponseUsoSistema"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Obras - Backoffice - Uso del Sistema"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/usosistema/v1/resumenobrasrecientes": {
+			"get": {
+				"operationId": "GetObrasIngresadas",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IResponseUsoSistema"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Obras - Backoffice - Uso del Sistema"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/obras/backoffice/usosistema/v1/resumenobrasinreportes": {
+			"get": {
+				"operationId": "GetObrasSinRep",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IObrasSinRep"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Obras - Backoffice - Uso del Sistema"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/obras/backoffice/v1/allobras": {
 			"get": {
 				"operationId": "FindAllObra",
@@ -656,6 +970,109 @@
 				"parameters": []
 			}
 		},
+		"/obras/backoffice/v1/creabom": {
+			"post": {
+				"operationId": "CreateBomMasivo",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreaBomOutput"
+								}
+							}
+						}
+					}
+				},
+				"description": "Función de creación de BOM",
+				"tags": [
+					"Obras - Backoffice - Manejo materiales (bom)"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ICreaBomInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/obras/backoffice/v1/bom_inicial_por_obra": {
+			"get": {
+				"operationId": "GetBomZero",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/IConsultaBomOutput"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Obras - Backoffice - Manejo materiales (bom)"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id_obra",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/obras/backoffice/v1/bom_actual_por_obra": {
+			"get": {
+				"operationId": "GetBomFinal",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/IConsultaBomOutput"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Obras - Backoffice - Manejo materiales (bom)"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id_obra",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/auth/v1/signin": {
 			"post": {
 				"operationId": "SignIn",
@@ -709,6 +1126,38 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/auth/v1/cambiapassword": {
+			"post": {
+				"operationId": "CambioPassword",
+				"responses": {
+					"200": {
+						"description": "consulta ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IRespuestaCambioPass"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Autenticación"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ICambioPassInput"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/auth/v1/signout": {

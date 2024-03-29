@@ -3,9 +3,13 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { BackofficeUsoSistemaController } from './../controllers/backoffice.usosistema.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { BackofficeObrasController } from './../controllers/backoffice.obras.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { BackofficeGeneralController } from './../controllers/backoffice.general.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { BackofficeBomController } from './../controllers/backoffice.bom.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/auth.controller';
 import { expressAuthentication } from './../middleware/auth.middleware';
@@ -15,6 +19,93 @@ import type { RequestHandler, Router } from 'express';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "IUsoSistema": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "fecha": {"dataType":"string","required":true},
+            "dia": {"dataType":"string","required":true},
+            "cantidad": {"dataType":"double","required":true},
+            "bg-color": {"dataType":"string","required":true},
+            "text-color": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IResponseUsoSistema": {
+        "dataType": "refObject",
+        "properties": {
+            "maule_norte": {"dataType":"array","array":{"dataType":"refObject","ref":"IUsoSistema"},"required":true},
+            "maule_sur": {"dataType":"array","array":{"dataType":"refObject","ref":"IUsoSistema"},"required":true},
+            "total": {"dataType":"array","array":{"dataType":"refObject","ref":"IUsoSistema"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IPeriodoSinRep": {
+        "dataType": "refObject",
+        "properties": {
+            "desde": {"dataType":"string","required":true},
+            "hasta": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IDetalleSinRep": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "codigo_obra": {"dataType":"string","required":true},
+            "fecha_ultimo": {"dataType":"string","required":true},
+            "dias_sin_rep": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IObrasSinRep": {
+        "dataType": "refObject",
+        "properties": {
+            "cantidad": {"dataType":"double","required":true},
+            "periodo": {"dataType":"union","subSchemas":[{"ref":"IPeriodoSinRep"},{"dataType":"enum","enums":[null]},{"dataType":"undefined"}],"required":true},
+            "detalle": {"dataType":"array","array":{"dataType":"refObject","ref":"IDetalleSinRep"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ICreaBomOutput": {
+        "dataType": "refObject",
+        "properties": {
+            "error": {"dataType":"boolean","required":true},
+            "message": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ICreaBomInput": {
+        "dataType": "refObject",
+        "properties": {
+            "id_obra": {"dataType":"double","required":true},
+            "reserva": {"dataType":"double","required":true},
+            "materiales": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IConsultaBomOutput": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "id_obra": {"dataType":"double","required":true},
+            "cod_reserva": {"dataType":"double","required":true},
+            "codigo_sap_material": {"dataType":"double","required":true},
+            "cantidad_requerida": {"dataType":"double","required":true},
+            "fecha_ingreso": {"dataType":"string","required":true},
+            "rut_usuario": {"dataType":"string","required":true},
+            "persona": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "IMensajeHome": {
         "dataType": "refObject",
         "properties": {
@@ -78,6 +169,24 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IRespuestaCambioPass": {
+        "dataType": "refObject",
+        "properties": {
+            "error": {"dataType":"boolean","required":true},
+            "message": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ICambioPassInput": {
+        "dataType": "refObject",
+        "properties": {
+            "password": {"dataType":"string","required":true},
+            "newPassword": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_IUserRepository.Exclude_keyofIUserRepository.password__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"double"},"username":{"dataType":"string"},"email":{"dataType":"string"},"sistema":{"dataType":"boolean"}},"validators":{}},
@@ -98,6 +207,79 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
+        app.get('/api/obras/backoffice/usosistema/v1/alllogin',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeUsoSistemaController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeUsoSistemaController.prototype.getLoginEnSistema)),
+
+            function BackofficeUsoSistemaController_getLoginEnSistema(request: any, response: any, next: any) {
+            const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeUsoSistemaController();
+
+
+              const promise = controller.getLoginEnSistema.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/usosistema/v1/resumenobrasrecientes',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeUsoSistemaController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeUsoSistemaController.prototype.getObrasIngresadas)),
+
+            function BackofficeUsoSistemaController_getObrasIngresadas(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeUsoSistemaController();
+
+
+              const promise = controller.getObrasIngresadas.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/usosistema/v1/resumenobrasinreportes',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeUsoSistemaController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeUsoSistemaController.prototype.getObrasSinRep)),
+
+            function BackofficeUsoSistemaController_getObrasSinRep(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeUsoSistemaController();
+
+
+              const promise = controller.getObrasSinRep.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/api/obras/backoffice/v1/allobras',
             ...(fetchMiddlewares<RequestHandler>(BackofficeObrasController)),
             ...(fetchMiddlewares<RequestHandler>(BackofficeObrasController.prototype.findAllObra)),
@@ -581,6 +763,82 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/api/obras/backoffice/v1/creabom',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeBomController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeBomController.prototype.createBomMasivo)),
+
+            function BackofficeBomController_createBomMasivo(request: any, response: any, next: any) {
+            const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+                    bom: {"in":"body","name":"bom","required":true,"ref":"ICreaBomInput"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeBomController();
+
+
+              const promise = controller.createBomMasivo.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/v1/bom_inicial_por_obra',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeBomController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeBomController.prototype.getBomZero)),
+
+            function BackofficeBomController_getBomZero(request: any, response: any, next: any) {
+            const args = {
+                    id_obra: {"in":"query","name":"id_obra","required":true,"dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeBomController();
+
+
+              const promise = controller.getBomZero.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/api/obras/backoffice/v1/bom_actual_por_obra',
+            ...(fetchMiddlewares<RequestHandler>(BackofficeBomController)),
+            ...(fetchMiddlewares<RequestHandler>(BackofficeBomController.prototype.getBomFinal)),
+
+            function BackofficeBomController_getBomFinal(request: any, response: any, next: any) {
+            const args = {
+                    id_obra: {"in":"query","name":"id_obra","required":true,"dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new BackofficeBomController();
+
+
+              const promise = controller.getBomFinal.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/api/auth/v1/signin',
             ...(fetchMiddlewares<RequestHandler>(AuthController)),
             ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.signIn)),
@@ -626,6 +884,32 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.consultaTest.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, 200, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/api/auth/v1/cambiapassword',
+            ...(fetchMiddlewares<RequestHandler>(AuthController)),
+            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.cambioPassword)),
+
+            function AuthController_cambioPassword(request: any, response: any, next: any) {
+            const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+                    input: {"in":"body","name":"input","required":true,"ref":"ICambioPassInput"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new AuthController();
+
+
+              const promise = controller.cambioPassword.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, 200, next);
             } catch (err) {
                 return next(err);

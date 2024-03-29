@@ -1,5 +1,6 @@
 import { config } from "../config/auth.config";
-import { IAuthRepository, ISignInInput, IRespuestaLogin, IMenuItem, IJsonMenu } from "../interfaces/auth.interface";
+import { ZodError } from "zod";
+import { IAuthRepository, ISignInInput, IRespuestaLogin, IMenuItem, IJsonMenu, ICambioPassInput, IRespuestaCambioPass, ICambioPassInputSchema } from "../interfaces/auth.interface";
 import User from "../models/auth/user.model";
 import UsuariosFunciones from "../models/auth/usuariosFunciones.model";
 import VerHomepage from "../models/frontend/verHomepage.model";
@@ -8,6 +9,10 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { DataStoredInToken } from "../interfaces/dataStoredInToken";
 import { AuthError } from "../common/auth-error";
+import HttpException from "../common/http-exception";
+import { HttpStatus } from "../interfaces/httpStatus";
+import Database from "../db/index";
+import LoginHistorial from "../models/auth/loginHistorial.model";
 
 interface IBuscarUser {
     [key: string]: any;
@@ -35,8 +40,21 @@ export class AuthRepository implements IAuthRepository {
                 if (!passwordIsValid) {
                     throw new AuthError( "Password incorrecta");
                 }
+                
+                
+                let authorities = [];
+                let idRole = [];
+                const roles = await user.$get("roles");
+                for (const element of roles) {
+                    idRole.push(element.id);
+                    authorities.push("ROLE_" + element.name?.toUpperCase());
+                }
+
                 const dataStoredInToken: DataStoredInToken = {
                     id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    roles: authorities
                 };
                 const token = jwt.sign(dataStoredInToken,
                     config.secret,
@@ -45,13 +63,6 @@ export class AuthRepository implements IAuthRepository {
                      allowInsecureKeySizes: true,
                      expiresIn: 86400, // 24 hours
                     });
-                let authorities = [];
-                let idRole = [];
-                const roles = await user.$get("roles");
-                for (const element of roles) {
-                    idRole.push(element.id);
-                    authorities.push("ROLE_" + element.name?.toUpperCase());
-                }
 
                 const userFuncion = await UsuariosFunciones.findOne({
                     where: {
@@ -134,10 +145,73 @@ export class AuthRepository implements IAuthRepository {
     signOut(): string {
         return "logout ok";
     }
-    
-    consultaTest(): Promise<String> {
-        const salida: String = "ok";
-        return new Promise(resolve => resolve(salida));
+
+    async cambioPassword(input: ICambioPassInput, userStored: DataStoredInToken): Promise<IRespuestaCambioPass> {
+        try {
+            const validate = ICambioPassInputSchema.parse(input);
+            if (!userStored) {
+                throw new HttpException(HttpStatus.UNAUTHORIZED, "No autorizado");
+            }
+            if (validate.password === validate.newPassword) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "La nueva contraseña no puede ser igual a la anterior");
+            }
+            let condition: IBuscarUser = {};
+            condition.username = userStored.username;
+            const user = await User.findOne({ where: condition });
+            if (!user) {
+                throw new HttpException(HttpStatus.UNAUTHORIZED, "No autorizado");
+            }
+            if (!user.password) {
+                throw new HttpException(HttpStatus.UNAUTHORIZED, "No autorizado");
+            }
+            const passwordIsValid = bcrypt.compareSync(
+                validate.password,
+                user.password
+              );
+
+            if (!passwordIsValid) {
+                throw new HttpException(HttpStatus.UNAUTHORIZED, "Password incorrecta");
+            };
+
+            if (validate.newPassword === user.password) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "La nueva contraseña no puede ser igual a la anterior");
+            }
+            const password = bcrypt.hashSync(validate.newPassword, 8);
+            const c = new Date().toLocaleString("es-CL", {timeZone: "America/Santiago"});
+            const fecha_hoy = c.substring(6,10) + '-' + c.substring(3,5) + '-' + c.substring(0,2)
+
+
+            const db = new Database();
+            const sequelize = db.sequelize;
+            const t = await sequelize?.transaction();
+            if (!t) {
+                throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error en la transacción");
+            }
+            try {
+                await User.update({ password: password, fecha_password: fecha_hoy }, { where: { id: user.id}, transaction: t });
+                await LoginHistorial.create({
+                    username: user.username,
+                    email: user.email,
+                    accion: 'Cambio Password',
+                    fecha_hora: fecha_hoy, 
+                    comentario: 'Password actualizada para el usuario ' + user.username}, {transaction: t});
+                await t.commit();
+            }catch (error) {
+                await t.rollback();
+                throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al cambiar la contraseña");
+            }
+            return {"error": false, "message": "Contraseña cambiada correctamente!"};
+
+        } catch (error) {
+            if (error instanceof ZodError) {
+                const mensaje = error.issues.map(issue => 'Error en campo: '+issue.path[0]+' -> '+issue.message).join('; ');
+                throw new HttpException(HttpStatus.BAD_REQUEST, mensaje);
+            }
+            if (error instanceof HttpException) {
+                throw new HttpException(error?.statusCode ?? HttpStatus.INTERNAL_SERVER_ERROR, error.message);
+            }
+            throw new HttpException(HttpStatus.BAD_REQUEST, "Los datos vienen en un formato incorrecto");
+        }
     }
 }
 

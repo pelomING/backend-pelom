@@ -3,7 +3,7 @@ import AuthRepository from "../repositories/auth.repository";
 import { verifyToken, logout } from "../middleware/authJwt.middleware";
 import {
   Body, Controller, Get, Path, Post, Query, Route, Tags, SuccessResponse, Request, Security, Middlewares} from "tsoa";
-import { ISignInInput, IRespuestaLogin, IUserRepository } from "../interfaces/auth.interface";
+import { ISignInInput, IRespuestaLogin, IUserRepository, ICambioPassInput, IRespuestaCambioPass } from "../interfaces/auth.interface";
 import { HttpStatus } from "../interfaces/httpStatus";
 
 
@@ -48,6 +48,17 @@ export class AuthController {
        
             console.log("consultaTest --> ", req.user);
             return req.user.username?req.user.username:"no ok";
+    }
+
+    @SuccessResponse(HttpStatus.OK, "consulta ok")
+    @Post("/cambiapassword")
+    @Middlewares(verifyToken)
+    async cambioPassword(@Request() req: express.Request, @Body() input: ICambioPassInput): Promise<IRespuestaCambioPass> {
+      
+        const userStored = req.user;
+        const cambioPass = await AuthRepository.cambioPassword(input, userStored);
+        return cambioPass;
+
     }
 
     @SuccessResponse(HttpStatus.OK)

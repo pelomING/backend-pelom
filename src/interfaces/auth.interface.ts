@@ -1,3 +1,8 @@
+import { z } from "zod";
+import { zodErrorMap } from "../common/zod.common";
+
+z.setErrorMap(zodErrorMap);
+
 interface IUserRepository {
     id?: number;
     username?: string;
@@ -51,14 +56,28 @@ interface IRespuestaLogin {
     menu: Array<IJsonMenu>;
 }
 
+interface ICambioPassInput {
+    password: string;
+    newPassword: string;
+}
+
+interface IRespuestaCambioPass {
+    error: boolean,
+    message: string
+}
+
+const ICambioPassInputSchema = z.object({
+    password: z.string(),
+    newPassword: z.string(),
+});
+
 interface IAuthRepository {
     
     signIn(buscaUser: ISignInInput): Promise<IRespuestaLogin>;
     
     signUp(username: string, email: string, password: string): Promise<IRespuestaLogin>;
     signOut(): string;
-    
-    consultaTest(): Promise<String>;
+    cambioPassword(passUser: ICambioPassInput, userStored: IRespuestaLogin): Promise<IRespuestaCambioPass>;
 }
 
 
@@ -71,4 +90,7 @@ export {
     IJsonMenu, 
     IMenuItem,
     IMensajeHome,
-    IHomePage};
+    IHomePage,
+    ICambioPassInput,
+    ICambioPassInputSchema,
+    IRespuestaCambioPass};

@@ -27,6 +27,11 @@ import Obra from "../models/obras/obra.model";
 import ObrasHistorialCambios from "../models/obras/obrasHistorialCambios.model";
 import ObrasCierres from "../models/obras/obrasCierres.model";
 import ObrasParalizacion from "../models/obras/obrasParalizacion.model";
+import ReservasObras from "../models/obras/reservasObras.model";
+import LogMovimiento from "../models/obras/logMovimiento.model";
+import VwBomZero from "../models/obras/vwBomZero.model";
+import VwBomFinal from "../models/obras/vwBomFinal.model";
+import LoginHistorial from "../models/auth/loginHistorial.model";
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -54,6 +59,7 @@ class Database {
       
       models: [
         //Auth
+        LoginHistorial,
         Menu,
         Role, 
         User, 
@@ -71,17 +77,22 @@ class Database {
         EmpresaContratista,
         EstadoObra,
         EstadoVisita,
+        LogMovimiento,
         MaestroActividad,
         Obra,
         ObrasCierres,
         ObrasHistorialCambios,
         ObrasParalizacion,
         Recargos,
+        ReservasObras,
         Segmento,
         TipoActividad,
         TipoObra,
         TipoOperacion,
-        TipoTrabajo]
+        TipoTrabajo,
+        VwBomZero,
+        VwBomFinal
+      ]
         
       //models: ["../models/**/*.model.ts"]
     });
