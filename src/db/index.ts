@@ -42,6 +42,8 @@ class Database {
 
   private async connectToDatabase() {
 
+    console.log('config -> ', config);
+
     this.sequelize = new Sequelize({
       database: config.DB,
       username: config.USER,

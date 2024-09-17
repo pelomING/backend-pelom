@@ -2,7 +2,7 @@
   "name": "backend-pelom",
   "version": "1.0.0",
   "description": "Backend para Webapp Pelom",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "build": "tsoa spec-and-routes && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
